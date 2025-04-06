@@ -18,7 +18,7 @@ export async function loader({request}: Route.LoaderArgs) {
 }
 
 export function Layout({children}: { children: React.ReactNode }) {
-    const {theme} = useLoaderData<typeof loader>();
+    const {theme} = useLoaderData<typeof loader>() ?? {theme: Theme.DARK};
     return (
         <ThemeProvider specifiedTheme={theme} themeAction='/api/set-theme'>
             <LayoutContent>
@@ -29,14 +29,14 @@ export function Layout({children}: { children: React.ReactNode }) {
 }
 
 export function LayoutContent({children}: { children: React.ReactNode }) {
-    const {...data} = useLoaderData<typeof loader>();
+    const loaderData = useLoaderData<typeof loader>();
     const [theme] = useTheme();
     return (
         <html lang="en" data-theme={theme} className={theme ?? ''} suppressHydrationWarning>
         <head>
             <meta charSet="utf-8"/>
             <meta name="viewport" content="width=device-width, initial-scale=1"/>
-            <PreventFlashOnWrongTheme ssrTheme={Boolean(data.theme)}/>
+            <PreventFlashOnWrongTheme ssrTheme={Boolean(loaderData?.theme)}/>
             <Meta/>
             <Links/>
         </head>
@@ -53,6 +53,7 @@ const config: UiConfig = {
     footer: <>Footer</>,
     headerLinks: [
         {label: 'Home', to: '/'},
+        {label: 'Sketches', to: '/sketch'},
         {label: 'About', to: '/about'},
     ],
     headerProfile: <>Profile</>,
