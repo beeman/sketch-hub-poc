@@ -1,5 +1,5 @@
 import type {Route} from "./+types/sketch-list";
-import {data, Link, useFetcher} from "react-router";
+import {data, Link, redirect, useFetcher} from "react-router";
 import {SketchUiGrid} from "./ui/sketch-ui-grid";
 import {prismaSketchFindAll} from "./data-access/prisma-sketch-find-all";
 import {prismaSketchCreate} from "./data-access/prisma-sketch-create";
@@ -23,7 +23,7 @@ export async function action({request}: Route.ActionArgs) {
     if (action === 'create') {
         const created = await prismaSketchCreate(body)
         console.log(`Created sketch ${created.slug}`, created);
-        return data({created})
+        return redirect(`/sketch/${created.slug}`);
     }
     if (action === 'delete') {
         const deleted = await prismaSketchDelete(body)
