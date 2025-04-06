@@ -1,4 +1,4 @@
-import {PrismaClient} from "@prisma/client";
+import {Prisma, PrismaClient} from "@prisma/client";
 
 export let prisma: PrismaClient;
 
@@ -19,3 +19,5 @@ if (process.env.NODE_ENV === "production") {
     prisma = global.db;
 }
 
+
+export {Prisma}

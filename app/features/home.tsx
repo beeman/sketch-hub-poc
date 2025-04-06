@@ -15,10 +15,8 @@ export default function Home() {
         <main className='flex-1 p-4 flex flex-col gap-4'>
             <div className='flex justify-between items-center'>
                 <h1 className='font-semibold text-lg'>Sketch Hub</h1>
-                <Link to="/sketch/new">New sketch</Link>
             </div>
-
-            <Link to="/sketch">Sketch list</Link>
+            <Link to="/sketch">Browse sketches</Link>
         </main>
     </div>
 }

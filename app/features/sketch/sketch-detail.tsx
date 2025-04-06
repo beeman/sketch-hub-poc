@@ -1,28 +1,41 @@
-import {prisma} from "~/lib/db.server";
 import type {Route} from "./+types/sketch-detail";
+import {data, useFetcher} from "react-router";
+import {prismaSketchUpdate} from "~/features/sketch/data-access/prisma-sketch-update";
 
-export function meta({}: Route.MetaArgs) {
+import {prismaSketchFindBySlug} from "~/features/sketch/data-access/prisma-sketch-find-by-slug";
+import {SketchUiRender} from "~/features/sketch/ui/sketch-ui-render";
+
+export function meta({data}: Route.MetaArgs) {
     return [
-        {title: "Sketch Hub POC"},
+        {title: `${data.item?.title} | Sketch Hub POC`},
         {name: "description", content: "Welcome to React Router!"},
     ];
 }
 
 export async function loader({params}: Route.LoaderArgs) {
-    const {slug} = params;
-    const item = await prisma.sketch.findUnique({
-        where: {
-            slug: slug,
-        },
-    })
+    const item = await prismaSketchFindBySlug(params.slug);
 
     return {item}
 }
 
-export default function SketchDetail(props: Route.ComponentProps) {
-    const {item} = props.loaderData;
-    return <div>
-        <h1>{item?.title}</h1>
-        <p>{JSON.stringify(item?.content, null, 2)}</p>
-    </div>
+export async function action({request, params}: Route.ActionArgs) {
+    const updated = await prismaSketchUpdate(params.slug, await request.formData())
+
+    return data({updated})
+}
+
+export default function SketchDetail({loaderData}: Route.ComponentProps) {
+    const fetcher = useFetcher()
+
+    if (!loaderData.item) {
+        return <div>Not found</div>
+    }
+
+    async function updateSketch(content: string) {
+        const data = new FormData();
+        data.append('content', content);
+        await fetcher.submit(data, {method: 'post'})
+    }
+
+    return <SketchUiRender sketch={loaderData.item} updateSketch={updateSketch}/>
 }
