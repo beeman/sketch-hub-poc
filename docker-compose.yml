@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: sketch-hub-poc
+      POSTGRES_USER: sketch-hub-poc
+      POSTGRES_PASSWORD: sketch-hub-poc
+    volumes:
+      - ./tmp/postgres:/var/lib/postgresql/data
