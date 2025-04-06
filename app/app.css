@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "../node_modules/@excalidraw/excalidraw/dist/prod/index.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
