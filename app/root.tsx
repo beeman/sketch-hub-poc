@@ -3,7 +3,7 @@ import {isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration, u
 import type {Route} from "./+types/root";
 import "./app.css";
 import {themeSessionResolver} from "~/sessions.server";
-import {PreventFlashOnWrongTheme, ThemeProvider, useTheme} from "remix-themes";
+import {PreventFlashOnWrongTheme, Theme, ThemeProvider, useTheme} from "remix-themes";
 
 export const links: Route.LinksFunction = () => [];
 
@@ -11,7 +11,7 @@ export async function loader({request}: Route.LoaderArgs) {
     const {getTheme} = await themeSessionResolver(request);
 
     return {
-        theme: getTheme(),
+        theme: getTheme() ?? Theme.DARK,
     }
 }
 
