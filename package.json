@@ -8,7 +8,7 @@
     "dev:services": "docker-compose up",
     "docker:build": "docker build -t sketch-hub-poc:latest .",
     "docker:run": "docker run --rm --name sketch-hub-poc -p 3000:3000 --env-file .env sketch-hub-poc:latest",
-    "prisma:migrate": "prisma migrate deploy",
+    "prisma:migrate": "prisma migrate deploy && prisma generate",
     "start": "npm run prisma:migrate && react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
