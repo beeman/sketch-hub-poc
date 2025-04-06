@@ -21,6 +21,7 @@ FROM base
 COPY ./package.json pnpm-lock.yaml /app/
 COPY --from=production-dependencies-env /app/node_modules /app/node_modules
 COPY --from=build-env /app/build /app/build
+COPY --from=build-env /app/prisma /app/prisma
 ENV PORT=3000
 WORKDIR /app
 CMD ["npm", "run", "start"]

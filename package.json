@@ -8,7 +8,8 @@
     "dev:services": "docker-compose up",
     "docker:build": "docker build -t sketch-hub-poc:latest .",
     "docker:run": "docker run --rm --name sketch-hub-poc -p 3000:3000 --env-file .env sketch-hub-poc:latest",
-    "start": "npm prisma migrate deploy && react-router-serve ./build/server/index.js",
+    "prisma:migrate": "prisma migrate deploy",
+    "start": "npm run prisma:migrate && react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
@@ -16,6 +17,7 @@
     "@react-router/node": "^7.5.0",
     "@react-router/serve": "^7.5.0",
     "isbot": "^5.1.17",
+    "prisma": "^6.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.5.0",
@@ -27,7 +29,6 @@
     "@types/node": "^20",
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.1",
-    "prisma": "^6.5.0",
     "react-router-devtools": "^1.1.0",
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.2",
