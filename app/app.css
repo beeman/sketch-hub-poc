@@ -4,13 +4,13 @@
 
 @theme {
     --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    --foreground: var(--color-neutral-900);
+    --foreground: var(--color-stone-900);
     --background: var(--color-white);
 }
 
 &[data-theme="dark"] {
-    --foreground: var(--color-neutral-100);
-    --background: var(--color-neutral-950);
+    --foreground: var(--color-stone-100);
+    --background: var(--color-stone-950);
 }
 
 html,
@@ -27,4 +27,61 @@ html[data-theme="light"] body {
 html[data-theme="dark"],
 html[data-theme="dark"] body {
     color-scheme: dark;
+}
+
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+.ui-layout {
+    @apply h-full;
+    @apply flex flex-col justify-between;
+}
+
+.ui-layout header {
+    @apply flex items-center justify-between;
+    @apply p-2 md:p-4;
+    @apply bg-stone-100 dark:bg-stone-900;
+    @apply text-stone-900 dark:text-stone-100;
+}
+
+.ui-layout header .left,
+.ui-layout header .right,
+.ui-layout header nav,
+.ui-layout .logo {
+    @apply flex items-center gap-2;
+    @apply whitespace-nowrap;
+}
+
+.ui-layout header nav a.active {
+    @apply font-bold;
+}
+
+.ui-layout main {
+    @apply flex-1 overflow-hidden h-full;
+}
+
+.ui-layout footer {
+    @apply flex justify-center p-1 md:p-2;
+    @apply bg-stone-100 dark:bg-stone-900;
+    @apply text-stone-900 dark:text-stone-100;
+}
+
+.ui-layout .logo {
+    @apply font-bold text-xl;
+}
+
+.ui-layout .logo img {
+    @apply rounded-md;
+}
+
+.ui-layout .logo span {
+    @apply font-bold text-xl;
+}
+
+.ui-page {
+    @apply h-full overflow-auto;
 }

@@ -4,6 +4,8 @@ import type {Route} from "./+types/root";
 import "./app.css";
 import {themeSessionResolver} from "~/sessions.server";
 import {PreventFlashOnWrongTheme, Theme, ThemeProvider, useTheme} from "remix-themes";
+import {UiContextProvider} from "~/components/ui-context-provider";
+import type {UiConfig} from "./components/ui-context";
 
 export const links: Route.LinksFunction = () => [];
 
@@ -47,8 +49,19 @@ export function LayoutContent({children}: { children: React.ReactNode }) {
     );
 }
 
+const config: UiConfig = {
+    footer: <>Footer</>,
+    headerLinks: [
+        {label: 'Home', to: '/'},
+        {label: 'About', to: '/about'},
+    ],
+    headerProfile: <>Profile</>,
+    name: 'Sketch Hub',
+}
 export default function App({loaderData}: Route.ComponentProps) {
-    return <Outlet/>
+    return <UiContextProvider config={config}>
+        <Outlet/>
+    </UiContextProvider>
 
 }
 

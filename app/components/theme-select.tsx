@@ -1,13 +1,17 @@
 import {Theme, useTheme} from "remix-themes";
 
-export function ThemeSelect() {
-    const [theme, setTheme] = useTheme();
-
-
+export function useThemes() {
     const themes: { label: string, value: Theme }[] = [
         {label: 'Light', value: Theme.LIGHT},
         {label: 'Dark', value: Theme.DARK},
     ];
+    const [theme, setTheme] = useTheme();
+
+    return {setTheme, theme, themes}
+}
+
+export function ThemeSelect() {
+    const {theme, setTheme, themes} = useThemes();
 
     return (
         <div>
