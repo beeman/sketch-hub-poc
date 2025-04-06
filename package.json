@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build",
+    "build": "pnpm prisma generate && react-router build",
     "dev": "react-router dev",
     "dev:services": "docker-compose up",
     "docker:build": "docker build -t sketch-hub-poc:latest .",
